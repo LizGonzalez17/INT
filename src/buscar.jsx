@@ -1,13 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
-import { useNavigate } from 'react-router-dom';
-
-const containerStyle = {
-  width: '100%',
-  height: '700px',
-  borderRadius: '10px',
-  marginBottom: '20px',
-};
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const center = {
   lat: 19.432608,
@@ -18,55 +11,126 @@ const Buscar = () => {
   const [ubicacion, setUbicacion] = useState(center);
   const [textoBusqueda, setTextoBusqueda] = useState('');
   const [botonPresionado, setBotonPresionado] = useState(false);
-
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const folio = location.state?.folio ?? 'ABC123'; // folio dinámico desde pantalla anterior
 
   const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyCUqkanrBAfXYVORLMLgaV8hz_wV83Ar6M', // Asegúrate de que esta clave tenga habilitada la API de Maps
+    googleMapsApiKey: 'AIzaSyCUqkanrBAfXYVORLMLgaV8hz_wV83Ar6M',
   });
 
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (textoBusqueda.trim() !== '') {
+        buscarDireccion(textoBusqueda);
+      }
+    }, 1000);
+    return () => clearTimeout(delayDebounceFn);
+  }, [textoBusqueda]);
+
+  const obtenerDireccion = (lat, lng) => {
+    const geocoder = new window.google.maps.Geocoder();
+    const latlng = { lat, lng };
+    geocoder.geocode({ location: latlng }, (results, status) => {
+      if (status === 'OK') {
+        if (results[0]) {
+          setTextoBusqueda(results[0].formatted_address);
+        } else {
+          setTextoBusqueda('Dirección no encontrada');
+        }
+      } else {
+        console.error('Geocoder falló por: ' + status);
+      }
+    });
+  };
+
+  const buscarDireccion = (direccion) => {
+    const geocoder = new window.google.maps.Geocoder();
+    geocoder.geocode({ address: direccion }, (results, status) => {
+      if (status === 'OK' && results[0]) {
+        const nuevaUbicacion = {
+          lat: results[0].geometry.location.lat(),
+          lng: results[0].geometry.location.lng(),
+        };
+        setUbicacion(nuevaUbicacion);
+      } else {
+        console.error('No se encontró la dirección:', status);
+      }
+    });
+  };
+
   const manejarClickBuscar = () => {
-    if (!ubicacion) {
-      alert('Por favor, selecciona una ubicación en el mapa');
+    if (!ubicacion || !textoBusqueda || textoBusqueda === 'Dirección no encontrada') {
+      alert('Selecciona una ubicación válida y asegúrate de que la dirección sea válida.');
       return;
     }
+
     console.log('Ubicación seleccionada:', ubicacion);
-    navigate('/registrar_denuncia');
+
+    navigate('/registrar_denuncia', {
+      state: {
+        folio,
+        latitud: ubicacion.lat,
+        longitud: ubicacion.lng,
+        direccion: textoBusqueda,
+      },
+    });
   };
 
   return (
-    <div style={estilos.contenedor}>
-      <div style={estilos.contenedorBusqueda}>
-        <label style={estilos.etiquetaBusqueda}>Buscar</label>
-        <input
-          type="text"
-          placeholder="Escribe aquí..."
-          value={textoBusqueda}
-          onChange={(e) => setTextoBusqueda(e.target.value)}
-          style={estilos.entradaBusqueda}
-        />
-      </div>
-
+    <div style={estilos.contenedorPantalla}>
       {!isLoaded ? (
-        <div style={{ textAlign: 'center', fontSize: '18px' }}>Cargando mapa...</div>
+        <div style={estilos.cargando}>Cargando mapa...</div>
       ) : (
         <GoogleMap
-          mapContainerStyle={containerStyle}
+          mapContainerStyle={estilos.mapaPantalla}
           center={ubicacion}
           zoom={13}
-          onClick={(e) =>
-            setUbicacion({ lat: e.latLng.lat(), lng: e.latLng.lng() })
-          }
+          onClick={(e) => {
+            const nuevaUbicacion = {
+              lat: e.latLng.lat(),
+              lng: e.latLng.lng(),
+            };
+            setUbicacion(nuevaUbicacion);
+            obtenerDireccion(nuevaUbicacion.lat, nuevaUbicacion.lng);
+          }}
         >
-          <Marker position={ubicacion} />
+          {ubicacion && (
+            <Marker
+              position={ubicacion}
+              draggable={true}
+              onDragEnd={(e) => {
+                const nuevaUbicacion = {
+                  lat: e.latLng.lat(),
+                  lng: e.latLng.lng(),
+                };
+                setUbicacion(nuevaUbicacion);
+                obtenerDireccion(nuevaUbicacion.lat, nuevaUbicacion.lng);
+              }}
+            />
+          )}
         </GoogleMap>
       )}
 
-      <div style={estilos.footer}>
+      <div style={estilos.uiFlotante}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <input
+            type="text"
+            placeholder="Buscar ubicación..."
+            value={textoBusqueda}
+            onChange={(e) => setTextoBusqueda(e.target.value)}
+            style={estilos.input}
+          />
+          <p style={{ fontSize: '12px', color: '#666', marginTop: '4px' }}>
+            Dirección actual: {textoBusqueda}
+          </p>
+        </div>
+
         <button
           aria-pressed={botonPresionado}
           style={{
-            ...estilos.botonBuscar,
+            ...estilos.boton,
             backgroundColor: botonPresionado ? '#4b0e23' : '#621132',
           }}
           onMouseDown={() => setBotonPresionado(true)}
@@ -82,47 +146,53 @@ const Buscar = () => {
 };
 
 const estilos = {
-  contenedor: {
+  contenedorPantalla: {
+    width: '100vw',
+    height: '100vh',
+    position: 'relative',
+  },
+  mapaPantalla: {
     width: '100%',
-    padding: '20px',
-    boxSizing: 'border-box',
-    backgroundColor: '#f2f2f2',
+    height: '100%',
+  },
+  cargando: {
+    width: '100vw',
     height: '100vh',
     display: 'flex',
-    flexDirection: 'column',
-  },
-  contenedorBusqueda: {
-    display: 'flex',
+    justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: '10px',
+    fontSize: '20px',
+    color: '#444',
   },
-  etiquetaBusqueda: {
-    marginRight: '10px',
-    fontWeight: 'bold',
-    fontSize: '22px',
-  },
-  entradaBusqueda: {
-    flexGrow: 1,
-    padding: '14px 12px',
-    fontSize: '18px',
-    borderRadius: '8px',
-    border: '1px solid #ddd',
-  },
-  footer: {
-    marginTop: 'auto',
+  uiFlotante: {
+    position: 'absolute',
+    top: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    backgroundColor: 'rgba(255, 255, 255, 0.95)',
+    padding: '16px 24px',
+    borderRadius: '12px',
+    boxShadow: '0 8px 16px rgba(0,0,0,0.15)',
     display: 'flex',
-    justifyContent: 'flex-end',
+    gap: '12px',
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 10,
   },
-  botonBuscar: {
-    backgroundColor: '#621132',
+  input: {
+    padding: '12px 16px',
+    fontSize: '16px',
+    borderRadius: '8px',
+    width: '300px',
+  },
+  boton: {
+    padding: '12px 24px',
     color: 'white',
     border: 'none',
-    padding: '10px 20px',
-    borderRadius: '5px',
+    borderRadius: '8px',
+    fontSize: '16px',
     cursor: 'pointer',
-    userSelect: 'none',
-    transition: 'background-color 0.2s ease',
-    boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+    transition: 'background-color 0.3s',
   },
 };
 

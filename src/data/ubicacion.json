@@ -1,0 +1,23 @@
+[
+    {
+        "folio": "ABC123",
+        "latitud": "19.44619803628396",
+        "longitud": "-99.12843704223633",
+        "direccion": "Tepito"
+    },
+
+    {
+        "folio": "DEF123",
+        "latitud": "19.45646771962688",
+        "longitud": "-99.18436409033204",
+        "direccion": "Tacuba"
+    },
+    
+    {
+        "folio": "GHI123",
+        "latitud": "19.434057416826118",
+        "longitud": "-99.19572830200195",
+        "direccion": "Polanco"
+    }
+
+]

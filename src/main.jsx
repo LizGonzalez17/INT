@@ -10,7 +10,8 @@ import Principal from './principal.jsx';
 import Buscar from './buscar.jsx';
 import RegistrarDenuncia from './registrar_denuncia.jsx';
 import ConsultaFolio from './consulta_folio.jsx';
-import Dashboard from './dashboard.jsx'; // ✅ IMPORTA el componente Dashboard
+import ConsultaIncidente from './consulta_incidente.jsx'; // ✅ NUEVO
+import Dashboard from './dashboard.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -21,7 +22,8 @@ createRoot(document.getElementById('root')).render(
         <Route path="/buscar" element={<Buscar />} />
         <Route path="/registrar_denuncia" element={<RegistrarDenuncia />} />
         <Route path="/consulta_folio" element={<ConsultaFolio />} />
-        <Route path="/dashboard" element={<Dashboard />} /> {/* ✅ NUEVA RUTA */}
+        <Route path="/consulta_incidente" element={<ConsultaIncidente />} /> {/* ✅ NUEVA RUTA */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

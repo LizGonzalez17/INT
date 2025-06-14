@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "nombre": "Catálogo Tipo Arma"
+    },
+    {
+        "id": 2,
+        "nombre": "Catálogo Tipo Secuestro"
+    },
+    {
+        "id": 3,
+        "nombre": "Catálogo Tipo Extorsión"
+    },
+    {
+        "id": 4,
+        "nombre": "Catálogo Tipo Drogas"
+    },
+    {
+        "id": 5,
+        "nombre": "Catálogo Tipo Fraude"
+    },
+    {
+        "id": 6,
+        "nombre": "Catálogo Tipo Plataforma de Fraude"
+    },
+    {
+        "id": 7,
+        "nombre": "Catálogo Tipo Homicidio"
+    },
+    {
+        "id": 8,
+        "nombre": "Catálogo Tipo Fuga"
+    },
+    {
+        "id": 9,
+        "nombre": "Catálogo Tipo Animal"
+    },
+    {
+        "id": 10,
+        "nombre": "Catálogo Tipo Maltrato Animal"
+    }
+]

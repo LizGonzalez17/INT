@@ -1,46 +1,47 @@
-import React, { useState, useEffect } from "react";
+import React, { useRef } from "react";
+import { useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import TablaAsalto from "./tabla_asaltos";
+import Tabla_RoboVehiculo from "./tabla_roboVehiculo";
+import TablaSecuestros from "./tabla_secuestros";
 
 export default function RegistrarDenuncia() {
-  const [tipoFormulario, setTipoFormulario] = useState("");
-  const [preguntas, setPreguntas] = useState([]);
-  const [respuestas, setRespuestas] = useState({});
+  const { state } = useLocation();
 
-  useEffect(() => {
-    if (!tipoFormulario) {
-      setPreguntas([]);
-      setRespuestas({});
-      return;
-    }
+  // Aquí esperamos que el parámetro "tipo" nos diga qué formulario mostrar
+  const tipoDenuncia = state?.tipo || "asalto"; // default a "asalto"
+  const folioRecibido = state?.folio || "";
+  const latitud = state?.latitud || "";
+  const longitud = state?.longitud || "";
+  const direccion = state?.direccion || "";
 
-    if (tipoFormulario === "tipo1") {
-      setPreguntas([
-        { id: "preg1", label: "Describe el incidente", type: "text" },
-        { id: "preg2", label: "Fecha del incidente", type: "date" },
-      ]);
-      setRespuestas({});
-    } else if (tipoFormulario === "tipo2") {
-      setPreguntas([
-        { id: "preg3", label: "Nombre del testigo", type: "text" },
-        { id: "preg4", label: "Número de contacto", type: "tel" },
-      ]);
-      setRespuestas({});
-    } else {
-      setPreguntas([]);
-      setRespuestas({});
-    }
-  }, [tipoFormulario]);
-
-  const handleChange = (id, value) => {
-    setRespuestas((prev) => ({ ...prev, [id]: value }));
-  };
+  const tablaRef = useRef(null);
 
   const handleGuardar = () => {
-    if (!tipoFormulario) {
-      alert("Selecciona un tipo de formulario.");
-      return;
-    }
-    localStorage.setItem("denunciaRespuestas", JSON.stringify({ tipoFormulario, respuestas }));
-    alert("Formulario guardado correctamente.");
+    const datosFormulario = tablaRef.current?.obtenerDatos?.() || {};
+
+    const datosCompletos = {
+      folio: folioRecibido,
+      latitud,
+      longitud,
+      direccion,
+      tipoDenuncia,
+      ...datosFormulario,
+    };
+
+    console.log("Datos a guardar:", datosCompletos);
+
+    toast.success("Tu denuncia ha sido registrada exitosamente", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+    });
   };
 
   const customStyles = {
@@ -50,93 +51,131 @@ export default function RegistrarDenuncia() {
     background: "#f2f2f2",
   };
 
+  // Función para renderizar el formulario correspondiente
+  const renderFormulario = () => {
+    switch (tipoDenuncia.toLowerCase()) {
+      case "asalto":
+        return <TablaAsalto ref={tablaRef} />;
+      case "robovehiculo":
+      case "robo vehiculo":
+        return <Tabla_RoboVehiculo ref={tablaRef} />;
+      case "secuestro":
+        return <TablaSecuestros ref={tablaRef} />;
+      default:
+        return <div>No hay formulario disponible para este tipo de denuncia.</div>;
+    }
+  };
+
   return (
-    <div className="container py-5" style={{ backgroundColor: customStyles.background, minHeight: "100vh" }}>
-      <h1 className="mb-4" style={{ color: customStyles.primary, fontWeight: "700" }}>
-        Registrar Denuncia
+    <div
+      style={{
+        height: "100vh",
+        width: "100vw",
+        backgroundColor: customStyles.background,
+        overflowY: "auto",
+        padding: "20px",
+        boxSizing: "border-box",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <ToastContainer />
+
+      <h1
+        style={{
+          color: customStyles.primary,
+          fontWeight: "700",
+          marginBottom: "20px",
+        }}
+      >
+        Registrar Denuncia - {tipoDenuncia.charAt(0).toUpperCase() + tipoDenuncia.slice(1)}
       </h1>
 
-      {/* Tipo de formulario (solo placeholder por ahora) */}
-      <div className="mb-4 row align-items-center">
-        <label htmlFor="tipoFormulario" className="col-sm-3 col-form-label" style={{ color: customStyles.primary, fontWeight: "600" }}>
-          Tipo de formulario:
+      <div style={{ marginBottom: "16px" }}>
+        <label htmlFor="folio" style={labelStyle(customStyles)}>
+          Folio recibido:
         </label>
-        <div className="col-sm-9">
-          <select
-            id="tipoFormulario"
-            className="form-select"
-            value={tipoFormulario}
-            onChange={(e) => setTipoFormulario(e.target.value)}
-            style={{ borderColor: customStyles.accent, backgroundColor: customStyles.secondary, color: customStyles.primary }}
-          >
-            <option value="">Seleccione el tipo de formulario</option>
-            {/* Las demás opciones se cargarán desde la base de datos en el futuro */}
-          </select>
+        <input
+          type="text"
+          id="folio"
+          value={folioRecibido}
+          readOnly
+          style={inputStyle(customStyles)}
+        />
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          gap: "10px",
+          marginBottom: "20px",
+          flexWrap: "wrap",
+        }}
+      >
+        <div style={{ flex: "1" }}>
+          <label htmlFor="latitud" style={labelStyle(customStyles)}>
+            Latitud:
+          </label>
+          <input
+            type="text"
+            id="latitud"
+            value={latitud}
+            readOnly
+            style={inputStyle(customStyles)}
+          />
+        </div>
+        <div style={{ flex: "1" }}>
+          <label htmlFor="longitud" style={labelStyle(customStyles)}>
+            Longitud:
+          </label>
+          <input
+            type="text"
+            id="longitud"
+            value={longitud}
+            readOnly
+            style={inputStyle(customStyles)}
+          />
+        </div>
+        <div style={{ flex: "1" }}>
+          <label htmlFor="direccion" style={labelStyle(customStyles)}>
+            Dirección:
+          </label>
+          <input
+            type="text"
+            id="direccion"
+            value={direccion}
+            readOnly
+            style={inputStyle(customStyles)}
+          />
         </div>
       </div>
 
-      {/* Campos: Latitud, Longitud, Dirección */}
-      <div className="row g-3 mb-5">
-        {["Latitud", "Longitud", "Dirección"].map((label) => (
-          <div className="col-md-4" key={label}>
-            <label htmlFor={label.toLowerCase()} className="form-label" style={{ color: customStyles.primary, fontWeight: "600" }}>
-              {label}
-            </label>
-            <input
-              type="text"
-              id={label.toLowerCase()}
-              name={label.toLowerCase()}
-              className="form-control"
-              placeholder={label}
-              style={{ borderColor: customStyles.accent }}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Formulario dinámico */}
       <div
-        className="p-4 rounded shadow-sm"
-        style={{ backgroundColor: "white", minHeight: "220px", borderColor: customStyles.accent, borderStyle: "solid", borderWidth: "1px" }}
+        style={{
+          backgroundColor: "#fff",
+          padding: "20px",
+          borderRadius: "10px",
+          border: `1px solid ${customStyles.accent}`,
+          marginBottom: "30px",
+        }}
       >
-        {preguntas.length === 0 ? (
-          <p className="text-center fst-italic" style={{ color: "#666" }}>
-            Selecciona un tipo de formulario para cargar las preguntas aquí.
-          </p>
-        ) : (
-          preguntas.map(({ id, label, type }) => (
-            <div className="mb-3" key={id}>
-              <label htmlFor={id} className="form-label" style={{ color: customStyles.accent, fontWeight: "700" }}>
-                {label}
-              </label>
-              <input
-                id={id}
-                type={type}
-                className="form-control"
-                value={respuestas[id] || ""}
-                onChange={(e) => handleChange(id, e.target.value)}
-                style={{ borderColor: customStyles.accent, color: customStyles.primary }}
-              />
-            </div>
-          ))
-        )}
+        {renderFormulario()}
       </div>
 
-      {/* Botón guardar registro */}
-      <div className="text-center mt-4">
+      <div style={{ textAlign: "center" }}>
         <button
           type="button"
-          className="btn btn-primary btn-lg"
           onClick={handleGuardar}
-          disabled={preguntas.length === 0}
           style={{
             backgroundColor: customStyles.accent,
-            borderColor: customStyles.accent,
+            color: "#fff",
             fontWeight: "700",
-            minWidth: "180px",
+            padding: "12px 30px",
+            borderRadius: "8px",
+            border: "none",
+            fontSize: "16px",
+            cursor: "pointer",
           }}
-          onMouseEnter={(e) => (e.target.style.backgroundColor = customStyles.primary)}
-          onMouseLeave={(e) => (e.target.style.backgroundColor = customStyles.accent)}
         >
           Guardar Registro
         </button>
@@ -144,3 +183,19 @@ export default function RegistrarDenuncia() {
     </div>
   );
 }
+
+const labelStyle = (customStyles) => ({
+  display: "block",
+  fontWeight: "600",
+  marginBottom: "6px",
+  color: customStyles.primary,
+});
+
+const inputStyle = (customStyles) => ({
+  width: "100%",
+  padding: "10px",
+  borderRadius: "6px",
+  border: `1px solid ${customStyles.accent}`,
+  backgroundColor: "#fff",
+  color: "#333",
+});

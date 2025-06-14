@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import usuarios from "./usuarios.json"; // Asegúrate de que el JSON esté en src/
+import { MdOutlineVisibility, MdOutlineVisibilityOff } from "react-icons/md";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [usuario, setUsuario] = useState('');
+  const [password, setPassword] = useState('');
+  const [mostrarPassword, setMostrarPassword] = useState(false);
+  const [mensaje, setMensaje] = useState('');
 
   const handleLogin = () => {
-    // Aquí puedes validar usuario y contraseña si quieres
-    // Por ahora solo navegamos directo a Principal
-    navigate('/principal');
+    const existe = usuarios.find(
+      (u) => u.usuario === usuario && u.password === password
+    );
+
+    if (existe) {
+      setMensaje('');
+      navigate('/principal', {
+        state: {
+          nombre: existe.nombre,
+          cargo: existe.permisos || '',
+          foto: existe.foto || ''
+        }
+      });
+    } else {
+      setMensaje('Acceso incorrecto');
+    }
   };
 
   return (
@@ -26,7 +45,7 @@ const Login = () => {
           </div>
           <div className="background-photo">
             <img
-              src="/assets/policia.png"
+              src="/assets/patrulla2.jpg"
               alt="Foto de fondo"
               style={styles.backgroundImg}
             />
@@ -38,21 +57,54 @@ const Login = () => {
           <div style={styles.form}>
             <div className="user-icon">
               <img
-                src="/assets/login.png"
+                src="/assets/policiafederal.png"
                 alt="Login Icon"
                 style={styles.userIcon}
               />
             </div>
-            <input type="text" placeholder="Usuario" style={styles.input} />
-            <input type="password" placeholder="Contraseña" style={styles.input} />
+            <input
+              type="text"
+              placeholder="Usuario"
+              value={usuario}
+              onChange={(e) => setUsuario(e.target.value)}
+              style={styles.input}
+            />
+            <div style={{ position: "relative", width: "100%" }}>
+              <input
+                type={mostrarPassword ? "text" : "password"}
+                placeholder="Contraseña"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={{ ...styles.input, paddingRight: "40px" }}
+              />
+              <span
+                onClick={() => setMostrarPassword(!mostrarPassword)}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "10px",
+                  transform: "translateY(-50%)",
+                  cursor: "pointer",
+                  color: "#666",
+                  userSelect: "none",
+                }}
+              >
+                {mostrarPassword ? (
+                  <MdOutlineVisibilityOff size={24} />
+                ) : (
+                  <MdOutlineVisibility size={24} />
+                )}
+              </span>
+            </div>
             <button
               style={styles.button}
               onMouseDown={(e) => (e.currentTarget.style.transform = "scale(0.95)")}
               onMouseUp={(e) => (e.currentTarget.style.transform = "scale(1)")}
-              onClick={handleLogin}  // Navegar aquí
+              onClick={handleLogin}
             >
               Entrar
             </button>
+            {mensaje && <p style={{ color: "red", marginTop: "15px" }}>{mensaje}</p>}
           </div>
         </div>
       </div>
@@ -63,35 +115,37 @@ const Login = () => {
 const styles = {
   body: {
     margin: 0,
+    padding: 0,
     fontFamily: "Arial, sans-serif",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
+    width: "100vw",
     backgroundColor: "#f0f0f0",
+    boxSizing: "border-box",
   },
   container: {
     display: "flex",
-    height: "80vh",
-    width: "60vw",
-    margin: "auto",
+    flex: 1,
+    height: "100%",
+    width: "100%",
   },
   left: {
-    flex: 1,
+    flex: 4,
+    position: "relative",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
-    background: "#1e3d58",
-    color: "white",
-    padding: "40px",
-    position: "relative",
+    //background: "#F4F7F7FF",
+    overflow: "hidden",
   },
   logoImg: {
     position: "absolute",
     top: "15px",
     left: "15px",
-    width: "180px",
+    width: "160px",
     zIndex: 10,
     padding: "6px",
     border: "2px solid #bbb",
@@ -109,50 +163,49 @@ const styles = {
     width: "100%",
     height: "100%",
     objectFit: "cover",
-    opacity: 0.5,
+    
   },
   right: {
-    flex: 1,
+    flex: 1.8,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ffffff",
-    height: "80vh",
-    width: "60vw",
   },
   form: {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    width: "60%",        // aumento moderado del 50%
-    maxWidth: "540px",   // aumento moderado de 500px
+    width: "80%",
+    maxWidth: "500px",
     textAlign: "center",
-    padding: "35px",     // un poco más de espacio
-    boxShadow: "0 4px 8px rgba(0, 0, 0, 1.1)",
+    padding: "30px",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
     borderRadius: "10px",
+    backgroundColor: "#fff",
   },
   userIcon: {
-    width: "90px",       // antes 80px
-    height: "90px",
-    marginTop: "40px",
-    marginBottom: "20px",
+    width: "120px",
+    height: "120px",
+    marginTop: "30px",
+    marginBottom: "25px",
   },
   input: {
     width: "100%",
-    padding: "14px",     // antes 12px
-    margin: "14px 0",    // antes 12px
+    padding: "14px",
+    margin: "14px 0",
     border: "1px solid #ddd",
     borderRadius: "8px",
-    fontSize: "1.2rem",  // antes 1.1rem
+    fontSize: "1.1rem",
   },
   button: {
     width: "70%",
-    padding: "13px",     // antes 11px
+    padding: "13px",
     backgroundColor: "#621132",
     color: "white",
     border: "none",
     borderRadius: "8px",
-    fontSize: "1.2rem",  // antes 1.1rem
+    fontSize: "1.1rem",
     cursor: "pointer",
     transition: "transform 0.1s ease, box-shadow 0.1s ease",
   },
