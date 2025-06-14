@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "nombre": "Robo de Asaltos"
+  },
+  {
+    "id": 2,
+    "nombre": "Portación de Armas"
+  },
+  {
+    "id": 3,
+    "nombre": "Secuestros"
+  },
+  {
+    "id": 4,
+    "nombre": "Extorciones"
+  },
+  {
+    "id": 5,
+    "nombre": "Drogas"
+  },
+  {
+    "id": 6,
+    "nombre": "Fraudes"
+  },
+  {
+    "id": 7,
+    "nombre": "Ataques"
+  },
+  {
+    "id": 8,
+    "nombre": "Homicidios"
+  },
+  {
+    "id": 9,
+    "nombre": "Fuga de Presos"
+  },
+  {
+    "id": 10,
+    "nombre": "Violencia"
+  },
+  {
+    "id": 11,
+    "nombre": "Delitos Cibernéticos"
+  },
+  {
+    "id": 12,
+    "nombre": "Desastres Naturales"
+  },
+  {
+    "id": 13,
+    "nombre": "Emergencias"
+  },
+  {
+    "id": 14,
+    "nombre": "Maltrato Animal"
+  },
+  {
+    "id": 15,
+    "nombre": "Servicios Públicos"
+  }
+]
