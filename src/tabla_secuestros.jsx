@@ -3,9 +3,10 @@ import React from "react";
 export default function TablaSecuestros() {
   return (
     <div>
-      <h2 style={{ color: "#621132", marginBottom: "10px" }}>
-        Formulario de Secuestros
-      </h2>
+      <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
+  Formulario de Secuestros
+</h2>
+
 
       {/* Nombre de la víctima */}
       <div style={{ marginBottom: "10px" }}>

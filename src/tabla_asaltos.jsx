@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 
-class TablaAsalto extends Component {
+export default class TablaAsalto extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hora: '',
-      fecha: '',
-      direccionIncidente: '',
-      descripcion: '',
-      descripcionAgresores: '',
-      descripcionVehiculo: '',
-      arma: 'no',
-      objetosPerdidos: '',
-      testigos: 'no',
-      nomDenunciante: '',
-      edadDenunciante: '',
-      telDenunciante: '',
+      hora: "",
+      fecha: "",
+      direccionIncidente: "",
+      descripcion: "",
+      descripcionAgresores: "",
+      descripcionVehiculo: "",
+      arma: "no",
+      objetosPerdidos: "",
+      testigos: "no",
+      nomDenunciante: "",
+      edadDenunciante: "",
+      telDenunciante: "",
     };
   }
 
@@ -23,165 +23,110 @@ class TablaAsalto extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault();
-    alert('Reporte enviado correctamente');
-    console.log(this.state);
-  };
-
   render() {
-    const {
-      hora, fecha, direccionIncidente,
-      descripcion, descripcionAgresores, descripcionVehiculo,
-      arma, objetosPerdidos, testigos,
-      nomDenunciante, edadDenunciante, telDenunciante,
-    } = this.state;
-
     return (
-      <>
-        <style>{`
-          * {
-            box-sizing: border-box;
-          }
-          html, body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-          }
-          form {
-            width: 98%;
-            max-width: 1400px;
-            margin: 40px auto;
-            background-color: #fff;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-          }
-          h2 {
-            text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
-            font-size: 2rem;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-          }
-          label {
-            font-weight: bold;
-            margin-bottom: 6px;
-            color: #333;
-          }
-          input, select, textarea {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            border: 1px solid #ccc;
-            font-size: 1rem;
-          }
-          input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: #3498db;
-            box-shadow: 0 0 6px rgba(52,152,219,0.5);
-          }
-          .row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-          }
-          .inputGroup {
-            flex: 1 1 30%;
-            display: flex;
-            flex-direction: column;
-          }
-          textarea {
-            resize: vertical;
-            min-height: 80px;
-          }
-          button {
-            width: 100%;
-            padding: 16px;
-            font-size: 1.2rem;
-            font-weight: bold;
-            background-color: #3498db;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-          }
-          button:hover {
-            background-color: #2980b9;
-          }
-          @media (max-width: 768px) {
-            .inputGroup {
-              flex: 1 1 100%;
-            }
-          }
-        `}</style>
+      <div>
+        <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
+          Formulario de Asaltos
+        </h2>
 
-        <form onSubmit={this.handleSubmit}>
-          <h2>Formulario de Asalto</h2>
+        {/* Fecha */}
+        <div style={fieldStyle}>
+          <label htmlFor="fecha" style={labelStyle}>Fecha:</label>
+          <input type="date" name="fecha" value={this.state.fecha} onChange={this.handleChange} style={inputStyle} />
+        </div>
 
-          <div className="row">
-            <div className="inputGroup">
-              <label htmlFor="hora">Hora</label>
-              <input type="time" id="hora" name="hora" value={hora} onChange={this.handleChange} required />
-            </div>
-            <div className="inputGroup">
-              <label htmlFor="fecha">Fecha</label>
-              <input type="date" id="fecha" name="fecha" value={fecha} onChange={this.handleChange} required />
-            </div>
-          </div>
+        {/* Hora */}
+        <div style={fieldStyle}>
+          <label htmlFor="hora" style={labelStyle}>Hora:</label>
+          <input type="time" name="hora" value={this.state.hora} onChange={this.handleChange} style={inputStyle} />
+        </div>
 
+        {/* Dirección */}
+        <div style={fieldStyle}>
+          <label htmlFor="direccionIncidente" style={labelStyle}>Dirección del incidente:</label>
+          <input type="text" name="direccionIncidente" value={this.state.direccionIncidente} onChange={this.handleChange} style={inputStyle} />
+        </div>
 
-          <label htmlFor="descripcion">Descripción de los Hechos</label>
-          <textarea id="descripcion" name="descripcion" placeholder="Detalles del incidente" value={descripcion} onChange={this.handleChange} required />
+        {/* Descripción de los hechos */}
+        <div style={fieldStyle}>
+          <label htmlFor="descripcion" style={labelStyle}>Descripción de los hechos:</label>
+          <textarea name="descripcion" rows="3" value={this.state.descripcion} onChange={this.handleChange} style={inputStyle} />
+        </div>
 
-          <label htmlFor="descripcionAgresores">Descripción de los Agresores</label>
-          <textarea id="descripcionAgresores" name="descripcionAgresores" placeholder="Ropa, estatura, edad, etc." value={descripcionAgresores} onChange={this.handleChange} required />
+        {/* Descripción agresores */}
+        <div style={fieldStyle}>
+          <label htmlFor="descripcionAgresores" style={labelStyle}>Descripción de los agresores:</label>
+          <textarea name="descripcionAgresores" rows="2" value={this.state.descripcionAgresores} onChange={this.handleChange} style={inputStyle} />
+        </div>
 
-          <label htmlFor="descripcionVehiculo">Descripción del Asalto</label>
-          <textarea id="descripcionVehiculo" name="descripcionVehiculo" placeholder="Marca, modelo, placas, etc." value={descripcionVehiculo} onChange={this.handleChange} required />
+        {/* Descripción vehículo */}
+        <div style={fieldStyle}>
+          <label htmlFor="descripcionVehiculo" style={labelStyle}>Descripción del vehículo (si hubo):</label>
+          <textarea name="descripcionVehiculo" rows="2" value={this.state.descripcionVehiculo} onChange={this.handleChange} style={inputStyle} />
+        </div>
 
-          <div className="row">
-            <div className="inputGroup">
-              <label htmlFor="arma">¿Se utilizó arma?</label>
-              <select id="arma" name="arma" value={arma} onChange={this.handleChange}>
-                <option value="no">No</option>
-                <option value="si">Sí</option>
-              </select>
-            </div>
-            <div className="inputGroup">
-              <label htmlFor="testigos">¿Hay testigos?</label>
-              <select id="testigos" name="testigos" value={testigos} onChange={this.handleChange}>
-                <option value="no">No</option>
-                <option value="si">Sí</option>
-              </select>
-            </div>
-          </div>
+        {/* Arma */}
+        <div style={fieldStyle}>
+          <label htmlFor="arma" style={labelStyle}>¿Se utilizó arma?</label>
+          <select name="arma" value={this.state.arma} onChange={this.handleChange} style={inputStyle}>
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+          </select>
+        </div>
 
+        {/* Testigos */}
+        <div style={fieldStyle}>
+          <label htmlFor="testigos" style={labelStyle}>¿Hay testigos?</label>
+          <select name="testigos" value={this.state.testigos} onChange={this.handleChange} style={inputStyle}>
+            <option value="no">No</option>
+            <option value="si">Sí</option>
+          </select>
+        </div>
 
-          <div className="row">
-            <div className="inputGroup">
-              <label htmlFor="nomDenunciante">Nombre del Denunciante</label>
-              <input type="text" id="nomDenunciante" name="nomDenunciante" placeholder="Nombre completo" value={nomDenunciante} onChange={this.handleChange} required />
-            </div>
-            <div className="inputGroup">
-              <label htmlFor="edadDenunciante">Edad</label>
-              <input type="number" min="0" id="edadDenunciante" name="edadDenunciante" placeholder="Edad" value={edadDenunciante} onChange={this.handleChange} required />
-            </div>
-            <div className="inputGroup">
-              <label htmlFor="telDenunciante">Teléfono</label>
-              <input type="tel" id="telDenunciante" name="telDenunciante" placeholder="Número de contacto" value={telDenunciante} onChange={this.handleChange} required />
-            </div>
-          </div>
+        {/* Objetos perdidos */}
+        <div style={fieldStyle}>
+          <label htmlFor="objetosPerdidos" style={labelStyle}>Objetos perdidos:</label>
+          <input type="text" name="objetosPerdidos" value={this.state.objetosPerdidos} onChange={this.handleChange} style={inputStyle} />
+        </div>
 
-          {/* <button type="submit">Enviar Reporte</button> */}
-        </form>
-      </>
+        {/* Nombre denunciante */}
+        <div style={fieldStyle}>
+          <label htmlFor="nomDenunciante" style={labelStyle}>Nombre del denunciante:</label>
+          <input type="text" name="nomDenunciante" value={this.state.nomDenunciante} onChange={this.handleChange} style={inputStyle} />
+        </div>
+
+        {/* Edad denunciante */}
+        <div style={fieldStyle}>
+          <label htmlFor="edadDenunciante" style={labelStyle}>Edad:</label>
+          <input type="number" min="0" name="edadDenunciante" value={this.state.edadDenunciante} onChange={this.handleChange} style={inputStyle} />
+        </div>
+
+        {/* Teléfono denunciante */}
+        <div style={fieldStyle}>
+          <label htmlFor="telDenunciante" style={labelStyle}>Teléfono:</label>
+          <input type="tel" name="telDenunciante" value={this.state.telDenunciante} onChange={this.handleChange} style={inputStyle} />
+        </div>
+      </div>
     );
   }
 }
 
-export default TablaAsalto;
+// Estilos usados
+const inputStyle = {
+  width: "100%",
+  padding: "8px",
+  borderRadius: "6px",
+  border: "1px solid #ccc",
+  boxSizing: "border-box",
+};
+
+const labelStyle = {
+  display: "block",
+  fontWeight: "600",
+  marginBottom: "4px",
+};
+
+const fieldStyle = {
+  marginBottom: "10px",
+};

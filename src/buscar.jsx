@@ -11,10 +11,13 @@ const Buscar = () => {
   const [ubicacion, setUbicacion] = useState(center);
   const [textoBusqueda, setTextoBusqueda] = useState('');
   const [botonPresionado, setBotonPresionado] = useState(false);
+  const [mostrarModal, setMostrarModal] = useState(false); // Estado para mostrar el modal
+
   const navigate = useNavigate();
   const location = useLocation();
 
-  const folio = location.state?.folio ?? 'ABC123'; // folio dinámico desde pantalla anterior
+  const folio = location.state.categoria ?? 'ABC123';
+  console.log('NUEVO: ' + location.state.categoria);
 
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCUqkanrBAfXYVORLMLgaV8hz_wV83Ar6M',
@@ -62,7 +65,7 @@ const Buscar = () => {
 
   const manejarClickBuscar = () => {
     if (!ubicacion || !textoBusqueda || textoBusqueda === 'Dirección no encontrada') {
-      alert('Selecciona una ubicación válida y asegúrate de que la dirección sea válida.');
+      setMostrarModal(true); // Mostrar el modal en lugar de alert
       return;
     }
 
@@ -141,6 +144,24 @@ const Buscar = () => {
           Siguiente
         </button>
       </div>
+
+      {/* Modal personalizado */}
+      {mostrarModal && (
+        <div style={estilos.modalFondo}>
+          <div style={estilos.modalContenido}>
+            <h3 style={{ marginBottom: '12px' }}>⚠️ Dirección inválida</h3>
+            <p style={{ marginBottom: '20px' }}>
+              Selecciona una ubicación válida en el mapa o asegúrate de que la dirección escrita sea correcta.
+            </p>
+            <button
+              style={estilos.botonCerrar}
+              onClick={() => setMostrarModal(false)}
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -193,6 +214,35 @@ const estilos = {
     fontSize: '16px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
+  },
+  modalFondo: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 1000,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContenido: {
+    backgroundColor: '#fff',
+    padding: '32px',
+    borderRadius: '12px',
+    textAlign: 'center',
+    width: '90%',
+    maxWidth: '400px',
+    boxShadow: '0 12px 24px rgba(0,0,0,0.25)',
+  },
+  botonCerrar: {
+    padding: '10px 20px',
+    backgroundColor: '#621132',
+    color: 'white',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
   },
 };
 

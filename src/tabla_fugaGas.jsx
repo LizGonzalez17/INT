@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaFugaGas() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Fuga de Gas
       </h2>
 
       {/* Fecha */}
@@ -23,14 +23,6 @@ export default function TablaDrogas() {
         <input type="time" id="hora" style={inputStyle} />
       </div>
 
-      {/* Lugar donde ocurre */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
-        </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
-      </div>
-
       {/* Descripción de los hechos */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="descripcionHechos" style={labelStyle}>
@@ -44,65 +36,66 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* Fuga visible o olor perceptible */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
+        <label htmlFor="fugaVisible" style={labelStyle}>
+          ¿Hay una fuga visible de gas o el olor es perceptible?
         </label>
-        <textarea
-          id="descripcionPersonas"
-          placeholder="Describa a las personas involucradas"
-          rows="3"
-          style={inputStyle}
-        ></textarea>
-      </div>
-
-      {/* Tipo de droga */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
-        </label>
-        <input
-          type="text"
-          id="tipoDroga"
-          placeholder="Ej. marihuana, cocaína, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Medios de transporte utilizados */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
-        </label>
-        <input
-          type="text"
-          id="mediosTransporte"
-          placeholder="Ej. auto, motocicleta, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Actos violentos o amenazas */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
-        </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
+        <select id="fugaVisible" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
       </div>
 
-      {/* Pruebas como fotos, videos, etc. */}
+      {/* Posible causa */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="pruebas" style={labelStyle}>
-          ¿Existen pruebas como fotos, videos, etcétera?
+        <label htmlFor="causaFuga" style={labelStyle}>
+          ¿Cuál es la posible causa de la fuga de gas? (Si se conoce):
         </label>
-        <select id="pruebas" defaultValue="no" style={inputStyle}>
+        <input
+          type="text"
+          id="causaFuga"
+          placeholder="Ej. tubería rota, negligencia"
+          style={inputStyle}
+        />
+      </div>
+
+      {/* Áreas afectadas */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="areasAfectadas" style={labelStyle}>
+          ¿La fuga está afectando viviendas, comercios o áreas cercanas?
+        </label>
+        <select id="areasAfectadas" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
+      </div>
+
+      {/* Personas en riesgo */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="personasEnRiesgo" style={labelStyle}>
+          ¿Cuántas personas se encuentran en riesgo debido a la fuga de gas?
+        </label>
+        <input
+          type="number"
+          id="personasEnRiesgo"
+          placeholder="Número de personas"
+          min="0"
+          style={inputStyle}
+        />
+      </div>
+
+      {/* Dirección o ruta de escape */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="rutaEscape" style={labelStyle}>
+          Dirección o ruta de escape:
+        </label>
+        <input
+          type="text"
+          id="rutaEscape"
+          placeholder="Ingrese la dirección o ruta"
+          style={inputStyle}
+        />
       </div>
 
       {/* Testigos */}

@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaAtaquesExplosivos() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Ataques Explosivos
       </h2>
 
       {/* Fecha */}
@@ -23,14 +23,6 @@ export default function TablaDrogas() {
         <input type="time" id="hora" style={inputStyle} />
       </div>
 
-      {/* Lugar donde ocurre */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
-        </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
-      </div>
-
       {/* Descripción de los hechos */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="descripcionHechos" style={labelStyle}>
@@ -44,65 +36,41 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* Víctimas o personas heridas */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
+        <label htmlFor="victimas" style={labelStyle}>
+          ¿Hay víctimas o personas heridas debido al ataque o explosión?
+        </label>
+        <select id="victimas" defaultValue="no" style={inputStyle}>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      {/* Descripción de personas o grupo sospechoso */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="descripcionSospechosos" style={labelStyle}>
+          Descripción de las personas o grupo sospechoso relacionado con el ataque:
         </label>
         <textarea
-          id="descripcionPersonas"
-          placeholder="Describa a las personas involucradas"
+          id="descripcionSospechosos"
+          placeholder="Describa a los sospechosos"
           rows="3"
           style={inputStyle}
         ></textarea>
       </div>
 
-      {/* Tipo de droga */}
+      {/* Dirección o ruta de escape */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
+        <label htmlFor="rutaEscape" style={labelStyle}>
+          Dirección o ruta de escape:
         </label>
         <input
           type="text"
-          id="tipoDroga"
-          placeholder="Ej. marihuana, cocaína, etc."
+          id="rutaEscape"
+          placeholder="Ingrese la dirección o ruta"
           style={inputStyle}
         />
-      </div>
-
-      {/* Medios de transporte utilizados */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
-        </label>
-        <input
-          type="text"
-          id="mediosTransporte"
-          placeholder="Ej. auto, motocicleta, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Actos violentos o amenazas */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
-        </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-
-      {/* Pruebas como fotos, videos, etc. */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="pruebas" style={labelStyle}>
-          ¿Existen pruebas como fotos, videos, etcétera?
-        </label>
-        <select id="pruebas" defaultValue="no" style={inputStyle}>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
       </div>
 
       {/* Testigos */}

@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaVentaDrogas() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Venta de Drogas
       </h2>
 
       {/* Fecha */}
@@ -15,20 +15,25 @@ export default function TablaDrogas() {
         <input type="date" id="fecha" style={inputStyle} />
       </div>
 
-      {/* Hora */}
+      {/* Hora en que se observó la venta */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="hora" style={labelStyle}>
-          Hora:
+        <label htmlFor="horaObservacion" style={labelStyle}>
+          Hora en que se observó la venta de droga:
         </label>
-        <input type="time" id="hora" style={inputStyle} />
+        <input type="time" id="horaObservacion" style={inputStyle} />
       </div>
 
-      {/* Lugar donde ocurre */}
+      {/* Ubicación exacta del punto de venta */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
+        <label htmlFor="ubicacionVenta" style={labelStyle}>
+          Ubicación exacta del punto de venta:
         </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
+        <input
+          type="text"
+          id="ubicacionVenta"
+          placeholder="Ingrese la ubicación exacta"
+          style={inputStyle}
+        />
       </div>
 
       {/* Descripción de los hechos */}
@@ -44,10 +49,10 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* Descripción de las personas involucradas */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
+          Descripción de las personas involucradas:
         </label>
         <textarea
           id="descripcionPersonas"
@@ -57,10 +62,10 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Tipo de droga */}
+      {/* Tipo de droga que se vende */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
+          Tipo de droga que se vende:
         </label>
         <input
           type="text"
@@ -73,7 +78,7 @@ export default function TablaDrogas() {
       {/* Medios de transporte utilizados */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
+          Medios de transporte utilizados por vendedores o compradores:
         </label>
         <input
           type="text"
@@ -83,21 +88,21 @@ export default function TablaDrogas() {
         />
       </div>
 
-      {/* Actos violentos o amenazas */}
+      {/* Amenazas, violencia o disputas */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
+        <label htmlFor="amenazasViolencia" style={labelStyle}>
+          ¿Se han registrado amenazas, violencia o disputas relacionadas con la venta de droga?
         </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
+        <select id="amenazasViolencia" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
       </div>
 
-      {/* Pruebas como fotos, videos, etc. */}
+      {/* Existencia de pruebas */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="pruebas" style={labelStyle}>
-          ¿Existen pruebas como fotos, videos, etcétera?
+          ¿Existen pruebas?
         </label>
         <select id="pruebas" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>

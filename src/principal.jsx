@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import {
   FaUser,
   FaClipboardList,
-  FaFileAlt,
-  FaClipboardCheck,
   FaTachometerAlt,
 } from "react-icons/fa";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -11,93 +9,93 @@ import { useNavigate, useLocation } from "react-router-dom";
 const categorias = [
   {
     nombre: "Robos",
-    subitems: ["asaltos", "robo de vehículo"],
+    subitems: ["Asaltos", "Robo de vehículos"],
   },
   {
     nombre: "Portación de armas",
-    subitems: ["portación_de_armas", "denotación_de_armas", "tráfico_de_armas"],
+    subitems: ["Portación_de_armas", "Denotación_de_armas", "Tráfico_de_armas"],
   },
   {
     nombre: "Secuestros",
     subitems: [
-      "secuestro",
-      "intento_de_secuestro",
-      "secuestro_virtual",
-      "tráfico_de_organos",
-      "trata_de_personas",
-      "personas_desaparecidas",
+      "Secuestro",
+      "Intento_de_secuestro",
+      "Secuestro_virtual",
+      "Tráfico_de_organos",
+      "Trata_de_personas",
+      "Personas_desaparecidas",
     ],
   },
   {
     nombre: "Extorsiones",
-    subitems: ["victimas de extorsión"],
+    subitems: ["Victimas de extorsión"],
   },
   {
     nombre: "Drogas",
-    subitems: ["tráfico_de_drogas", "venta_de_droga", "siembra_de_droga"],
+    subitems: ["Tráfico_de_drogas", "Venta_de_droga", "Siembra_de_droga"],
   },
   {
     nombre: "Fraude",
-    subitems: ["fraude_electrónico", "lavado_de_dinero"],
+    subitems: ["Fraude_electrónico", "Lavado_de_dinero"],
   },
   {
     nombre: "Ataques",
     subitems: [
-      "ataques_explosivos",
-      "incendios",
-      "explosiones",
-      "fuga_gas",
-      "sustancias_tóxicas",
+      "Ataques_explosivos",
+      "Incendios",
+      "Explosiones",
+      "Fuga_gas",
+      "Sustancias_tóxicas",
     ],
   },
   {
     nombre: "Homicidios",
-    subitems: ["homocidio", "intento_de_homicidio", "suicidio"],
+    subitems: ["Homocidio", "Intento_de_homicidio", "Suicidio"],
   },
   {
     nombre: "Fuga de presos",
-    subitems: ["fuga_de_presos"],
+    subitems: ["Fuga_de_presos"],
   },
   {
     nombre: "Violencia",
     subitems: [
-      "amenazas",
-      "maltrato_infantil",
-      "volencia_familiar",
-      "violencia_contra_mujeres",
-      "violencia_de_generó",
-      "acoso_sexual",
-      "acoso_callejero",
-      "explotación_laboral",
-      "prostitución",
+      "Amenazas",
+      "Maltrato_infantil",
+      "Violencia_familiar",
+      "Violencia_contra_mujeres",
+      "Violencia_de_generó",
+      "Acoso_sexual",
+      "Acoso_callejero",
+      "Explotación_laboral",
+      "Prostitución",
     ],
   },
   {
     nombre: "Emergencias",
-    subitems: ["atención_médica", "atención_psicológica", "atención_vial_heridos"],
+    subitems: ["Atención_médica", "Atención_psicológica", "Atención_vial_heridos"],
   },
   {
     nombre: "Desastres naturales",
     subitems: [
-      "terremotos_huracanes",
-      "deslaves",
-      "inundaciones",
-      "tormentas_eléctricas",
-      "accidentes_industriales",
-      "quema_de_basura_ilegal",
+      "Terremotos_huracanes",
+      "Deslaves",
+      "Inundaciones",
+      "Tormentas_eléctricas",
+      "Accidentes_industriales",
+      "Quema_de_basura_ilegal",
     ],
   },
   {
     nombre: "Maltrato animal",
-    subitems: ["Maltrato_animal", "venta_especies_en_extinción"],
+    subitems: ["Maltrato_animal", "Venta_especies_en_extinción"],
   },
   {
     nombre: "Servicios públicos",
-    subitems: ["semaforos_sin_funcionar", "fallas_de_alumbrado"],
+    subitems: ["Semáforos_sin_funcionar", "Fallas_de_alumbrado"],
   },
   {
     nombre: "Delitos cibernéticos",
-    subitems: ["robo_identidad", "ciberacoso", "hackeo"],
+    subitems: ["Robo_identidad", "Ciberacoso", "Hackeo"],
   },
 ];
 
@@ -253,82 +251,39 @@ const Principal = () => {
                 borderRadius: "8px",
               }}
             >
-              <h3 style={{ margin: 0 }}>CAD</h3>
-              <p style={{ fontSize: "14px", marginTop: "5px" }}>
+              <h3
+                style={{
+                  margin: 0,
+                  fontWeight: 900,
+                  fontFamily: "'Poppins', sans-serif",
+                  letterSpacing: "1.5px",
+                  color: "#5C0B0BFF",
+                  textShadow: "0 2px 5px rgba(59, 10, 69, 0.3)",
+                  textTransform: "uppercase",
+                  borderBottom: "3px solid #F9FBFDFF",
+                  paddingBottom: "6px",
+                }}
+              >
+                CAD
+              </h3>
+              <p
+                style={{
+                  fontSize: "14px",
+                  marginTop: "6px",
+                  fontWeight: 600,
+                  fontFamily: "'Poppins', sans-serif",
+                  color: "#4E0B0EFF",
+                  letterSpacing: "0.5px",
+                }}
+              >
                 Centro de Atención a Denuncias
               </p>
-            </div>
-
-            <div style={{ marginTop: "30px" }}>
-              <div
-                onClick={() => navigate("/consulta_folio")}
-                onMouseDown={() => setIsConsultaFolioPressed(true)}
-                onMouseUp={() => setIsConsultaFolioPressed(false)}
-                onMouseLeave={() => setIsConsultaFolioPressed(false)}
-                style={{
-                  marginBottom: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  color: "white",
-                  boxShadow: isConsultaFolioPressed
-                    ? "0px 5px 10px rgba(0, 0, 0, 0.3)"
-                    : "none",
-                  transition: "box-shadow 0.1s ease-in-out",
-                  cursor: "pointer",
-                }}
-              >
-                <FaClipboardList style={{ fontSize: "24px", marginRight: "15px" }} />
-                <p style={{ fontSize: "16px", margin: 0 }}>Consulta folio</p>
-              </div>
-
-              <div
-                onClick={() => navigate("/consulta_incidente")}
-                onMouseDown={() => setIsConsultaFolioPressed(true)}
-                onMouseUp={() => setIsConsultaFolioPressed(false)}
-                onMouseLeave={() => setIsConsultaFolioPressed(false)}
-                style={{
-                  marginBottom: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  color: "white",
-                  boxShadow: isConsultaFolioPressed
-                    ? "0px 5px 10px rgba(0, 0, 0, 0.3)"
-                    : "none",
-                  transition: "box-shadow 0.1s ease-in-out",
-                  cursor: "pointer",
-                }}
-              >
-                <FaClipboardCheck style={{ fontSize: "24px", marginRight: "15px" }} />
-                <p style={{ fontSize: "16px", margin: 0 }}>Consultas</p>
-              </div>
-
-              <div
-                onClick={() => navigate("/dashboard")}
-                onMouseDown={() => setIsDashboardPressed(true)}
-                onMouseUp={() => setIsDashboardPressed(false)}
-                onMouseLeave={() => setIsDashboardPressed(false)}
-                style={{
-                  marginBottom: "20px",
-                  display: "flex",
-                  alignItems: "center",
-                  color: "white",
-                  boxShadow: isDashboardPressed
-                    ? "0px 5px 10px rgba(0, 0, 0, 0.3)"
-                    : "none",
-                  transition: "box-shadow 0.1s ease-in-out",
-                  cursor: "pointer",
-                }}
-              >
-                <FaTachometerAlt style={{ fontSize: "24px", marginRight: "15px" }} />
-                <p style={{ fontSize: "16px", margin: 0 }}>Dashboard</p>
-              </div>
             </div>
 
             {/* Subcategorías */}
             <div
               style={{
-                marginTop: "auto",
-                marginBottom: "20px",
+                marginTop: "30px",
                 overflowY: "scroll",
                 maxHeight: "calc(100vh - 300px)",
                 scrollbarWidth: "none",
@@ -379,9 +334,7 @@ const Principal = () => {
                             textAlign: "left",
                           }}
                         >
-                          {sub
-                            .replace(/_/g, " ")
-                            .replace(/\b\w/g, (c) => c.toUpperCase())}
+                          {sub.replace(/_/g, " ")}
                         </button>
                       ))}
                     </div>
@@ -390,9 +343,52 @@ const Principal = () => {
               ))}
             </div>
 
-            <style>{`.hide-scrollbar::-webkit-scrollbar { display: none; }`}</style>
+            {/* Botones abajo */}
+            <div style={{ marginTop: "20px" }}>
+              <div
+                onClick={() => navigate("/consulta_folio")}
+                onMouseDown={() => setIsConsultaFolioPressed(true)}
+                onMouseUp={() => setIsConsultaFolioPressed(false)}
+                onMouseLeave={() => setIsConsultaFolioPressed(false)}
+                style={{
+                  marginBottom: "15px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "white",
+                  boxShadow: isConsultaFolioPressed
+                    ? "0px 5px 10px rgba(0, 0, 0, 0.3)"
+                    : "none",
+                  transition: "box-shadow 0.1s ease-in-out",
+                  cursor: "pointer",
+                }}
+              >
+                <FaClipboardList style={{ fontSize: "24px", marginRight: "15px" }} />
+                <p style={{ fontSize: "16px", margin: 0 }}>Consulta folio</p>
+              </div>
 
-            {/* Perfil */}
+              <div
+                onClick={() => navigate("/dashboard")}
+                onMouseDown={() => setIsDashboardPressed(true)}
+                onMouseUp={() => setIsDashboardPressed(false)}
+                onMouseLeave={() => setIsDashboardPressed(false)}
+                style={{
+                  marginBottom: "20px",
+                  display: "flex",
+                  alignItems: "center",
+                  color: "white",
+                  boxShadow: isDashboardPressed
+                    ? "0px 5px 10px rgba(0, 0, 0, 0.3)"
+                    : "none",
+                  transition: "box-shadow 0.1s ease-in-out",
+                  cursor: "pointer",
+                }}
+              >
+                <FaTachometerAlt style={{ fontSize: "24px", marginRight: "15px" }} />
+                <p style={{ fontSize: "16px", margin: 0 }}>Dashboard</p>
+              </div>
+            </div>
+
+            {/* Perfil del usuario */}
             <div
               onClick={handleProfileClick}
               style={{

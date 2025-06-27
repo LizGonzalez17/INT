@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaSiembraDroga() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Siembra de Droga
       </h2>
 
       {/* Fecha */}
@@ -23,12 +23,17 @@ export default function TablaDrogas() {
         <input type="time" id="hora" style={inputStyle} />
       </div>
 
-      {/* Lugar donde ocurre */}
+      {/* Ubicación exacta del terreno */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
+        <label htmlFor="ubicacionTerreno" style={labelStyle}>
+          Ubicación exacta del terreno o lugar donde se está cultivando la droga:
         </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
+        <input
+          type="text"
+          id="ubicacionTerreno"
+          placeholder="Ingrese la ubicación exacta"
+          style={inputStyle}
+        />
       </div>
 
       {/* Descripción de los hechos */}
@@ -44,10 +49,23 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* Tipo de droga sembrada */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="tipoDroga" style={labelStyle}>
+          Tipo de droga que se está sembrando (si es conocido):
+        </label>
+        <input
+          type="text"
+          id="tipoDroga"
+          placeholder="Ej. marihuana, coca, etc."
+          style={inputStyle}
+        />
+      </div>
+
+      {/* Descripción de personas involucradas */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
+          Descripción de las personas involucradas:
         </label>
         <textarea
           id="descripcionPersonas"
@@ -57,44 +75,18 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Tipo de droga */}
+      {/* Personas armadas observadas */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
+        <label htmlFor="personasArmadas" style={labelStyle}>
+          ¿Se han observado personas armadas en el lugar?
         </label>
-        <input
-          type="text"
-          id="tipoDroga"
-          placeholder="Ej. marihuana, cocaína, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Medios de transporte utilizados */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
-        </label>
-        <input
-          type="text"
-          id="mediosTransporte"
-          placeholder="Ej. auto, motocicleta, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Actos violentos o amenazas */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
-        </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
+        <select id="personasArmadas" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
       </div>
 
-      {/* Pruebas como fotos, videos, etc. */}
+      {/* Existencia de pruebas */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="pruebas" style={labelStyle}>
           ¿Existen pruebas como fotos, videos, etcétera?

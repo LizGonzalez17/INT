@@ -1,252 +1,333 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 const RegistrarDenuncia = () => {
   const [folioBuscar, setFolioBuscar] = useState("");
-  const [datos, setDatos] = useState(""); // texto que se muestra en textarea
+  const [datos, setDatos] = useState(null);
   const [editable, setEditable] = useState(false);
+  const pdfRef = useRef();
 
   const datosRespaldo = [
     {
-      folio: "12345",
+      folio: "ABC123",
       hora: "14:35",
       fecha: "2025-06-12",
       direccionIncidente: "Av. Insurgentes Sur 1234, Col. Del Valle, CDMX",
-      descripcion: "El incidente ocurrió cuando la víctima salía de un establecimiento comercial. Fue interceptada por dos sujetos armados.",
-      descripcionAgresores: "Dos hombres, uno de complexión delgada con sudadera negra y otro más robusto con chamarra azul. Ambos portaban cubrebocas.",
-      descripcionVehiculo: "Vehículo tipo sedan, color rojo, placas XYZ-123-A. Se encontraba estacionado frente al lugar del incidente.",
+      descripcion:
+        "Interceptada por dos sujetos armados al salir de un establecimiento.",
+      descripcionAgresores:
+        "Dos hombres, sudadera negra y chamarra azul, con cubrebocas.",
+      descripcionVehiculo: "Sedan rojo, placas XYZ-123-A.",
       arma: "sí",
-      objetosPerdidos: "Teléfono celular, cartera con identificaciones y dinero en efectivo (aproximadamente $1,500 MXN).",
+      objetosPerdidos: "Teléfono, cartera, dinero.",
       testigos: "sí",
-      nomDenunciante: "María Fernanda López Ramírez",
+      nomDenunciante: "María Fernanda López",
       edadDenunciante: 32,
-      telDenunciante: "5551234567"
+      telDenunciante: "5551234567",
     },
-    {
-      folio: "67890",
-      hora: "09:20",
-      fecha: "2025-06-13",
-      direccionIncidente: "Calle Morelos 456, Col. Centro, Guadalajara, Jalisco",
-      descripcion: "Mientras caminaba hacia su automóvil, la víctima fue interceptada por un sujeto que intentó arrebatarle el bolso.",
-      descripcionAgresores: "Hombre joven, aproximadamente 25 años, tez morena, camiseta gris, pantalón de mezclilla, sin tatuajes visibles.",
-      descripcionVehiculo: "Motocicleta negra sin placas visibles, modelo reciente.",
-      arma: "no",
-      objetosPerdidos: "Bolso de mano color beige con documentos personales y $800 en efectivo.",
-      testigos: "no",
-      nomDenunciante: "Luis Alberto Mendoza Torres",
-      edadDenunciante: 41,
-      telDenunciante: "3312456789"
-    }
   ];
 
-  const formatearDatos = (obj) => {
-    return (
-      `Folio: ${obj.folio}
-Fecha: ${obj.fecha}
-Hora: ${obj.hora}
-Dirección del incidente: ${obj.direccionIncidente}
-Descripción del incidente: ${obj.descripcion}
-Descripción de los agresores: ${obj.descripcionAgresores}
-Descripción del vehículo: ${obj.descripcionVehiculo}
-¿Hubo arma?: ${obj.arma}
-Objetos perdidos: ${obj.objetosPerdidos}
-¿Hubo testigos?: ${obj.testigos}
-Nombre del denunciante: ${obj.nomDenunciante}
-Edad del denunciante: ${obj.edadDenunciante}
-Teléfono del denunciante: ${obj.telDenunciante}`
+  const buscar = () => {
+    const encontrado = datosRespaldo.find(
+      (d) => d.folio.toLowerCase() === folioBuscar.trim().toLowerCase()
     );
-  };
-
-  const handleBuscar = async () => {
-    try {
-      const response = await fetch("/datos.json");
-      const json = await response.json();
-      buscarPorFolio(json);
-    } catch (error) {
-      console.warn("Error al cargar archivo, usando respaldo local");
-      buscarPorFolio(datosRespaldo);
-    }
-  };
-
-  const buscarPorFolio = (data) => {
-    const resultado = data.find((item) => item.folio === folioBuscar.trim());
-    if (resultado) {
-      setDatos(formatearDatos(resultado));
+    if (encontrado) {
+      setDatos({ ...encontrado, descripcionExtra: "" });
       setEditable(false);
     } else {
       setDatos("No se encontró el folio especificado.");
-      setEditable(false);
     }
   };
 
-  const handleModificar = () => {
-    if (datos && datos !== "No se encontró el folio especificado.") {
-      setEditable(true);
+  const handleChange = (key, val) => {
+    setDatos((prev) => ({ ...prev, [key]: val }));
+  };
+
+  const formatearEtiqueta = (key) => {
+    const etiquetas = {
+      folio: "Folio",
+      fecha: "Fecha",
+      hora: "Hora",
+      direccionIncidente: "Dirección del incidente",
+      descripcion: "Descripción del incidente",
+      descripcionAgresores: "Descripción de los agresores",
+      descripcionVehiculo: "Descripción del vehículo",
+      arma: "¿Hubo arma?",
+      objetosPerdidos: "Objetos perdidos",
+      testigos: "¿Hubo testigos?",
+      nomDenunciante: "Nombre del denunciante",
+      edadDenunciante: "Edad del denunciante",
+      telDenunciante: "Teléfono de contacto",
+    };
+    return etiquetas[key] || key;
+  };
+
+  const handleExportarPDF = async () => {
+    if (!pdfRef.current) return;
+
+    const original = pdfRef.current;
+    const clone = original.cloneNode(true);
+    clone.style.maxHeight = "none";
+    clone.style.overflow = "visible";
+    clone.style.position = "absolute";
+    clone.style.top = "-9999px";
+    clone.style.left = "-9999px";
+    clone.style.width = "210mm";
+    clone.style.padding = "20px";
+    document.body.appendChild(clone);
+
+    const canvas = await html2canvas(clone, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    const imgProps = pdf.getImageProperties(imgData);
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const imgHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    const pdfHeight = pdf.internal.pageSize.getHeight();
+
+    let position = 0;
+    let heightLeft = imgHeight;
+
+    pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+    heightLeft -= pdfHeight;
+
+    while (heightLeft > 0) {
+      position -= pdfHeight;
+      pdf.addPage();
+      pdf.addImage(imgData, "PNG", 0, position, pdfWidth, imgHeight);
+      heightLeft -= pdfHeight;
     }
+
+    pdf.save(`denuncia_${folioBuscar || "export"}.pdf`);
+    document.body.removeChild(clone);
   };
 
-  const handleGuardar = () => {
-    setEditable(false);
+  const estiloLabel = {
+    fontWeight: "700",
+    fontSize: "1rem",
+    marginBottom: 4,
+    color: "#7a1f24",
   };
 
-  const handleExportarPDF = () => {
-    // Aquí puedes implementar exportar PDF con la info de datos
-    alert("Funcionalidad de exportar PDF no implementada aún.");
+  const estiloCampo = {
+    padding: "10px",
+    fontSize: "0.95rem",
+    borderRadius: 12,
+    border: "1px solid #ccc",
+    backgroundColor: "#fff",
+    color: "#333",
+    width: "100%",
+    boxSizing: "border-box",
   };
 
   return (
     <div
       style={{
         height: "100vh",
-        padding: 24,
-        fontFamily: "'Helvetica Neue', Arial, sans-serif",
-        backgroundColor: "#ffffff",
-        color: "#2f2f2f",
-        display: "flex",
-        flexDirection: "column",
-        boxSizing: "border-box",
+        width: "100vw",
+        padding: "24px 32px",
+        background: "linear-gradient(to bottom, #f6f6f6, #ffffff)",
+        fontFamily: "Segoe UI, sans-serif",
+        overflow: "hidden",
       }}
     >
       <h2
         style={{
-          marginBottom: 24,
-          fontWeight: "700",
+          color: "#7a1f24",
           fontSize: "2rem",
-          borderBottom: "3px solid #4E232E",
-          paddingBottom: 8,
-          color: "#621132",
-          userSelect: "none",
+          textAlign: "center",
+          marginBottom: "30px",
+          borderBottom: "3px solid #7a1f24",
+          paddingBottom: "10px",
         }}
       >
-        Datos de consulta
+        Consulta de Denuncia - CDMX
       </h2>
 
-      {/* Input para folio + botón Buscar */}
-      <div style={{ marginBottom: 16, display: "flex", gap: 8 }}>
+      <div style={{ display: "flex", gap: 14, marginBottom: 24 }}>
         <input
           type="text"
           placeholder="Ingrese folio para buscar"
           value={folioBuscar}
           onChange={(e) => setFolioBuscar(e.target.value)}
-          style={{
-            flex: 1,
-            padding: 10,
-            fontSize: "1rem",
-            borderRadius: 6,
-            border: "2px solid #621132",
-          }}
+          style={{ ...estiloCampo, flex: 1, borderColor: "#7a1f24", fontWeight: "600" }}
         />
         <button
-          onClick={handleBuscar}
+          onClick={buscar}
           style={{
-            backgroundColor: "#621132",
-            color: "#e6d3b2",
-            fontWeight: "600",
-            padding: "10px 22px",
-            borderRadius: 6,
+            backgroundColor: "#7a1f24",
+            color: "white",
             border: "none",
+            padding: "12px 22px",
+            borderRadius: 10,
+            fontWeight: "bold",
             cursor: "pointer",
-            userSelect: "none",
+            transition: "0.3s",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#4E232E")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#621132")}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#551319")}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#7a1f24")}
         >
           Buscar
         </button>
       </div>
 
-      {/* Textarea con datos formateados */}
-      <textarea
-        style={{
-          flexGrow: 1,
-          width: "100%",
-          padding: 16,
-          fontSize: "1rem",
-          borderRadius: 8,
-          border: `2px solid ${editable ? "#621132" : "#4E232E"}`,
-          backgroundColor: editable ? "#fff" : "#f5f5f5",
-          color: "#2f2f2f",
-          resize: "vertical",
-          boxSizing: "border-box",
-          outline: "none",
-          fontFamily: "'Helvetica Neue', Arial, sans-serif",
-          minHeight: 0,
-          display: "block",
-          transition: "border-color 0.25s ease",
-          whiteSpace: "pre-wrap",
-        }}
-        value={datos}
-        onChange={(e) => setDatos(e.target.value)}
-        disabled={!editable}
-        placeholder="Aquí aparecerán los datos de la consulta..."
-      />
-
-      {/* Botones Modificar, Guardar y Exportar PDF */}
-      <div
-        style={{
-          marginTop: 24,
-          display: "flex",
-          justifyContent: "center",
-          gap: 16,
-          flexShrink: 0,
-        }}
-      >
-        <button
-          onClick={handleModificar}
+      {datos && typeof datos === "object" ? (
+        <div
+          ref={pdfRef}
           style={{
-            backgroundColor: "#621132",
-            color: "#e6d3b2",
-            fontWeight: "600",
-            padding: "10px 22px",
-            borderRadius: 6,
-            border: "none",
-            cursor: "pointer",
-            transition: "background-color 0.3s ease",
-            userSelect: "none",
+            backgroundColor: "#ffffff",
+            borderRadius: "16px",
+            boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+            padding: "24px",
+            maxHeight: "65vh",
+            overflowY: "auto",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#4E232E")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#621132")}
         >
-          Modificar
-        </button>
+          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <h3 style={{ color: "#7a1f24", fontSize: "1.6rem", margin: 0 }}>Detalles de la Denuncia</h3>
+            <div style={{ display: "flex", gap: 12 }}>
+              <img src="/assets/policiafederal.png" alt="Logo" style={{ height: 50, borderRadius: 10 }} />
+              <img src="/assets/logoCdmx.png" alt="Logo" style={{ height: 50, borderRadius: 10 }} />
+            </div>
+          </div>
 
-        <button
-          onClick={handleGuardar}
-          style={{
-            backgroundColor: "#4E232E",
-            color: "#e6d3b2",
-            fontWeight: "600",
-            padding: "10px 22px",
-            borderRadius: 6,
-            border: "none",
-            cursor: "pointer",
-            transition: "background-color 0.3s ease",
-            userSelect: "none",
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#621132")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#4E232E")}
-        >
-          Guardar
-        </button>
+          <div
+            style={{
+              display: "flex",
+              flexWrap: "wrap",
+              marginTop: 24,
+              gap: "16px 4%",
+            }}
+          >
+            {Object.entries(datos).map(([key, value]) => {
+              if (key === "descripcionExtra") return null;
 
-        <button
-          onClick={handleExportarPDF}
+              const isTextArea =
+                key === "descripcion" ||
+                key === "descripcionAgresores" ||
+                key === "descripcionVehiculo" ||
+                key === "objetosPerdidos";
+
+              const anchoCampo = isTextArea ? "100%" : "48%";
+
+              return (
+                <div key={key} style={{ width: anchoCampo }}>
+                  <label style={estiloLabel}>{formatearEtiqueta(key)}</label>
+                  {editable && key === "descripcion" ? (
+                    <div>
+                      <div
+                        style={{
+                          ...estiloCampo,
+                          backgroundColor: "#f1f1f1",
+                          marginBottom: 6,
+                          minHeight: 60,
+                          whiteSpace: "pre-wrap",
+                          border: "1px dashed #bbb",
+                        }}
+                      >
+                        {value}
+                      </div>
+                      <textarea
+                        placeholder="Agregar más información..."
+                        value={datos.descripcionExtra || ""}
+                        onChange={(e) =>
+                          setDatos((prev) => ({
+                            ...prev,
+                            descripcionExtra: e.target.value,
+                          }))
+                        }
+                        style={{
+                          ...estiloCampo,
+                          minHeight: 70,
+                          backgroundColor: "#fffbea",
+                          border: "1px solid #e5d28a",
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        ...estiloCampo,
+                        backgroundColor: "#f9f9f9",
+                        minHeight: isTextArea ? 60 : 40,
+                        whiteSpace: "pre-wrap",
+                        display: "flex",
+                        alignItems: "center",
+                      }}
+                    >
+                      {key === "descripcion" && datos.descripcionExtra
+                        ? value + "\n\n" + datos.descripcionExtra
+                        : value}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      ) : datos ? (
+        <p style={{ color: "#a13b3e", fontWeight: "600", textAlign: "center", marginTop: 20 }}>
+          {datos}
+        </p>
+      ) : null}
+
+      {datos && typeof datos === "object" && (
+        <div
           style={{
-            backgroundColor: "#2f2f2f",
-            color: "#e6d3b2",
-            fontWeight: "600",
-            padding: "10px 22px",
-            borderRadius: 6,
-            border: "none",
-            cursor: "pointer",
-            transition: "background-color 0.3s ease",
-            userSelect: "none",
+            marginTop: 24,
+            display: "flex",
+            justifyContent: "center",
+            gap: 16,
+            flexWrap: "wrap",
           }}
-          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#4E232E")}
-          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#2f2f2f")}
         >
-          Exportar PDF
-        </button>
-      </div>
+          <button
+            onClick={() => setEditable(true)}
+            disabled={editable}
+            style={{
+              backgroundColor: editable ? "#ccc" : "#7a1f24",
+              color: "#fff",
+              border: "none",
+              padding: "12px 28px",
+              borderRadius: 10,
+              fontWeight: "bold",
+              cursor: editable ? "not-allowed" : "pointer",
+            }}
+          >
+            Modificar
+          </button>
+          <button
+            onClick={() => setEditable(false)}
+            disabled={!editable}
+            style={{
+              backgroundColor: editable ? "#205050" : "#bbb",
+              color: "#fff",
+              border: "none",
+              padding: "12px 28px",
+              borderRadius: 10,
+              fontWeight: "bold",
+              cursor: editable ? "pointer" : "not-allowed",
+            }}
+          >
+            Guardar
+          </button>
+          <button
+            onClick={handleExportarPDF}
+            style={{
+              backgroundColor: "#333",
+              color: "#fff",
+              border: "none",
+              padding: "12px 28px",
+              borderRadius: 10,
+              fontWeight: "bold",
+              cursor: "pointer",
+            }}
+          >
+            Exportar PDF
+          </button>
+        </div>
+      )}
     </div>
   );
 };

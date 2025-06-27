@@ -1,42 +1,247 @@
 [
     {
         "id": 1,
-        "nombre": "Catálogo Tipo Arma"
+        "nombre": "Asaltos"
     },
     {
         "id": 2,
-        "nombre": "Catálogo Tipo Secuestro"
+        "nombre": "Robo de vehículos"
     },
     {
         "id": 3,
-        "nombre": "Catálogo Tipo Extorsión"
+        "nombre": "Portación de armas"
     },
     {
         "id": 4,
-        "nombre": "Catálogo Tipo Drogas"
+        "nombre": "Denotación de armas"
     },
     {
         "id": 5,
-        "nombre": "Catálogo Tipo Fraude"
+        "nombre": "Tráfico de armas"
     },
     {
         "id": 6,
-        "nombre": "Catálogo Tipo Plataforma de Fraude"
+        "nombre": "Secuestros"
     },
     {
         "id": 7,
-        "nombre": "Catálogo Tipo Homicidio"
+        "nombre": "Intento de secuestro"
     },
     {
         "id": 8,
-        "nombre": "Catálogo Tipo Fuga"
+        "nombre": "Secuestro virtual"
     },
     {
         "id": 9,
-        "nombre": "Catálogo Tipo Animal"
+        "nombre": "Tráfico de órganos"
     },
     {
         "id": 10,
-        "nombre": "Catálogo Tipo Maltrato Animal"
+        "nombre": "Trata de personas"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Personas desaparecidas"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Víctimas de extorsión"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Tráfico de drogas"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Venta de droga"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Siembra de droga"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Fraude electrónico"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Lavado de dinero"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Ataques explosivos"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Incendios"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Explosiones"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Fuga de gas"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Sustancias tóxicas"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Homicidios"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Intento de homicidio"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Suicidio"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Fuga de presos"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Amenazas"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Maltrato infantil"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Violencia familiar"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Violencia contra la mujer"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Violencia de generó"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Acoso sexual"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Acoso callejero"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Explotación laboral"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Prostitución"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Atención médica"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Atención psicológica"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Atención vial heridos"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Terremotos o huracanes"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Deslaves"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Inundaciones"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Tormentas eléctricas"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Accidentes industriales"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Quema de basura ilegal"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Maltrato animal"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Venta especies en peligro de extinción"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Semáforos sin funcionar"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Fallas de alumbrado"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Robo de identidad"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Ciberacoso"
+    }
+    ,
+    {
+        "id": 10,
+        "nombre": "Hackeo"
     }
 ]

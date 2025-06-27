@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaFraudeElectronico() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Fraude Electrónico
       </h2>
 
       {/* Fecha */}
@@ -15,20 +15,12 @@ export default function TablaDrogas() {
         <input type="date" id="fecha" style={inputStyle} />
       </div>
 
-      {/* Hora */}
+      {/* Hora en que se detectó el fraude */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="hora" style={labelStyle}>
-          Hora:
+        <label htmlFor="horaDeteccion" style={labelStyle}>
+          Hora en que se detectó el fraude electrónico:
         </label>
-        <input type="time" id="hora" style={inputStyle} />
-      </div>
-
-      {/* Lugar donde ocurre */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
-        </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
+        <input type="time" id="horaDeteccion" style={inputStyle} />
       </div>
 
       {/* Descripción de los hechos */}
@@ -44,60 +36,36 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* Tipo de fraude electrónico */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
-        </label>
-        <textarea
-          id="descripcionPersonas"
-          placeholder="Describa a las personas involucradas"
-          rows="3"
-          style={inputStyle}
-        ></textarea>
-      </div>
-
-      {/* Tipo de droga */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
+        <label htmlFor="tipoFraude" style={labelStyle}>
+          Tipo de fraude electrónico:
         </label>
         <input
           type="text"
-          id="tipoDroga"
-          placeholder="Ej. marihuana, cocaína, etc."
+          id="tipoFraude"
+          placeholder="Ej. phishing, robo de identidad, etc."
           style={inputStyle}
         />
       </div>
 
-      {/* Medios de transporte utilizados */}
+      {/* Plataforma o medio donde ocurrió */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
+        <label htmlFor="plataforma" style={labelStyle}>
+          Plataforma o medio donde ocurrió:
         </label>
         <input
           type="text"
-          id="mediosTransporte"
-          placeholder="Ej. auto, motocicleta, etc."
+          id="plataforma"
+          placeholder="Ej. correo electrónico, red social, banca en línea..."
           style={inputStyle}
         />
       </div>
 
-      {/* Actos violentos o amenazas */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
-        </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-
-      {/* Pruebas como fotos, videos, etc. */}
+      {/* Existencia de pruebas */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="pruebas" style={labelStyle}>
-          ¿Existen pruebas como fotos, videos, etcétera?
+          ¿Existen pruebas como correos electrónicos, capturas de pantalla, grabaciones de llamadas u otros datos que puedan ayudar en la investigación?
         </label>
         <select id="pruebas" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>

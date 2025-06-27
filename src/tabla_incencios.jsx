@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaIncendios() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Incendios
       </h2>
 
       {/* Fecha */}
@@ -23,14 +23,6 @@ export default function TablaDrogas() {
         <input type="time" id="hora" style={inputStyle} />
       </div>
 
-      {/* Lugar donde ocurre */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
-        </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
-      </div>
-
       {/* Descripción de los hechos */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="descripcionHechos" style={labelStyle}>
@@ -44,65 +36,74 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* ¿El incendio está afectando a alguna persona? */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
+        <label htmlFor="afectaPersonas" style={labelStyle}>
+          ¿El incendio está afectando a alguna persona?
         </label>
-        <textarea
-          id="descripcionPersonas"
-          placeholder="Describa a las personas involucradas"
-          rows="3"
-          style={inputStyle}
-        ></textarea>
-      </div>
-
-      {/* Tipo de droga */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
-        </label>
-        <input
-          type="text"
-          id="tipoDroga"
-          placeholder="Ej. marihuana, cocaína, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Medios de transporte utilizados */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
-        </label>
-        <input
-          type="text"
-          id="mediosTransporte"
-          placeholder="Ej. auto, motocicleta, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Actos violentos o amenazas */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
-        </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
+        <select id="afectaPersonas" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
       </div>
 
-      {/* Pruebas como fotos, videos, etc. */}
+      {/* ¿El fuego ha alcanzado alguna estructura o edificios cercanos? */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="pruebas" style={labelStyle}>
-          ¿Existen pruebas como fotos, videos, etcétera?
+        <label htmlFor="alcanceEstructuras" style={labelStyle}>
+          ¿El fuego ha alcanzado alguna estructura o edificios cercanos?
         </label>
-        <select id="pruebas" defaultValue="no" style={inputStyle}>
+        <select id="alcanceEstructuras" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
+      </div>
+
+      {/* ¿Existen personas atrapadas dentro de la estructura afectada? */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="personasAtrapadas" style={labelStyle}>
+          ¿Existen personas atrapadas dentro de la estructura afectada?
+        </label>
+        <select id="personasAtrapadas" defaultValue="no" style={inputStyle}>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      {/* ¿Hay heridos o personas en peligro debido al incendio? */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="heridosPeligro" style={labelStyle}>
+          ¿Hay heridos o personas en peligro debido al incendio?
+        </label>
+        <select id="heridosPeligro" defaultValue="no" style={inputStyle}>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
+
+      {/* ¿El incendio fue causado por alguna actividad humana o parece ser accidental? */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="causaIncendio" style={labelStyle}>
+          ¿El incendio fue causado por alguna actividad humana o parece ser accidental?
+        </label>
+        <select id="causaIncendio" defaultValue="" style={inputStyle}>
+          <option value="">Seleccione</option>
+          <option value="humana">Actividad humana</option>
+          <option value="accidental">Accidental</option>
+          <option value="desconocida">Desconocida</option>
+        </select>
+      </div>
+
+      {/* Dirección o ruta de escape */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="rutaEscape" style={labelStyle}>
+          Dirección o ruta de escape:
+        </label>
+        <input
+          type="text"
+          id="rutaEscape"
+          placeholder="Ingrese la dirección o ruta"
+          style={inputStyle}
+        />
       </div>
 
       {/* Testigos */}

@@ -1,268 +1,174 @@
-import React, { useState } from 'react';
+import React from "react";
 
-const TablaExtorciones = () => {
-  const [formData, setFormData] = useState({
-    hora: '',
-    fecha: '',
-    latitud: '',
-    longitud: '',
-    descripcion: '',
-    tipoExtorsion: '',  // Campo de tipo extorsión como select vacío
-    telExtorsion: '',
-    testigos: 'no', // valor por defecto
-    telDenunciante: '',
-    nomVictima: '',
-    edadVictima: '',
-    sexoVictima: '',
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Datos capturados:', formData);
-    // Aquí puedes agregar la lógica para capturar los datos, por ejemplo, enviarlos a una API o almacenarlos
-  };
-
+export default function TablaExtorsiones() {
   return (
-    <div style={styles.contenedor}>
-      <h3 style={styles.titulo}>Formulario de Denuncia - Tabla Extorciones</h3>
-      <form onSubmit={handleSubmit} style={styles.formulario}>
-        {/* Hora */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Hora:</label>
-          <input
-            type="time"
-            name="hora"
-            value={formData.hora}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+    <div>
+      <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
+        Formulario: Extorsiones
+      </h2>
 
-        {/* Fecha */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Fecha:</label>
-          <input
-            type="date"
-            name="fecha"
-            value={formData.fecha}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+      {/* Hora */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="hora"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Hora:
+        </label>
+        <input type="time" id="hora" style={inputStyle} />
+      </div>
 
-        {/* Latitud */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Latitud:</label>
-          <input
-            type="number"
-            name="latitud"
-            value={formData.latitud}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+      {/* Fecha */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="fecha"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Fecha:
+        </label>
+        <input type="date" id="fecha" style={inputStyle} />
+      </div>
 
-        {/* Longitud */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Longitud:</label>
-          <input
-            type="number"
-            name="longitud"
-            value={formData.longitud}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+      {/* Latitud */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="latitud"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Latitud:
+        </label>
+        <input type="number" id="latitud" style={inputStyle} />
+      </div>
 
-        {/* Descripción */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Descripción:</label>
-          <textarea
-            name="descripcion"
-            value={formData.descripcion}
-            onChange={handleChange}
-            required
-            style={styles.textarea}
-          />
-        </div>
+      {/* Longitud */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="longitud"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Longitud:
+        </label>
+        <input type="number" id="longitud" style={inputStyle} />
+      </div>
 
-        {/* Tipo de extorsión (select vacío) */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Tipo de extorsión:</label>
-          <select
-            name="tipoExtorsion"
-            value={formData.tipoExtorsion}
-            onChange={handleChange}
-            style={styles.select}
-          >
-            <option value="">Seleccione tipo de extorsión</option>
-          </select>
-        </div>
+      {/* Descripción */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="descripcion"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Descripción:
+        </label>
+        <textarea
+          id="descripcion"
+          placeholder="Describa el incidente"
+          rows="3"
+          style={inputStyle}
+        ></textarea>
+      </div>
 
-        {/* Teléfono del extorsionador */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Teléfono del extorsionador:</label>
-          <input
-            type="tel"
-            name="telExtorsion"
-            value={formData.telExtorsion}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+      {/* Tipo de extorsión */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="tipoExtorsion"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Tipo de extorsión:
+        </label>
+        <select id="tipoExtorsion" style={inputStyle}>
+          <option value="">Seleccione tipo de extorsión</option>
+        </select>
+      </div>
 
-        {/* Testigos */}
-        <div style={styles.campo}>
-          <label style={styles.label}>¿Hay testigos?</label>
-          <select
-            name="testigos"
-            value={formData.testigos}
-            onChange={handleChange}
-            style={styles.select}
-          >
-            <option value="si">Sí</option>
-            <option value="no">No</option>
-          </select>
-        </div>
+      {/* Teléfono del extorsionador */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="telExtorsion"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Teléfono del extorsionador:
+        </label>
+        <input
+          type="tel"
+          id="telExtorsion"
+          placeholder="Ej. 5551234567"
+          style={inputStyle}
+        />
+      </div>
 
-        {/* Teléfono del denunciante */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Teléfono del denunciante:</label>
-          <input
-            type="tel"
-            name="telDenunciante"
-            value={formData.telDenunciante}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+      {/* ¿Hay testigos? */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="testigos"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          ¿Hay testigos?
+        </label>
+        <select id="testigos" defaultValue="no" style={inputStyle}>
+          <option value="si">Sí</option>
+          <option value="no">No</option>
+        </select>
+      </div>
 
-        {/* Nombre de la víctima */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Nombre de la víctima:</label>
-          <input
-            type="text"
-            name="nomVictima"
-            value={formData.nomVictima}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+      {/* Teléfono del denunciante */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="telDenunciante"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Teléfono del denunciante:
+        </label>
+        <input type="tel" id="telDenunciante" placeholder="Ej. 5551234567" style={inputStyle} />
+      </div>
 
-        {/* Edad de la víctima */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Edad de la víctima:</label>
-          <input
-            type="number"
-            name="edadVictima"
-            value={formData.edadVictima}
-            onChange={handleChange}
-            required
-            style={styles.input}
-          />
-        </div>
+      {/* Nombre de la víctima */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="nomVictima"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Nombre de la víctima:
+        </label>
+        <input
+          type="text"
+          id="nomVictima"
+          placeholder="Nombre completo"
+          style={inputStyle}
+        />
+      </div>
 
-        {/* Sexo de la víctima */}
-        <div style={styles.campo}>
-          <label style={styles.label}>Sexo de la víctima:</label>
-          <select
-            name="sexoVictima"
-            value={formData.sexoVictima}
-            onChange={handleChange}
-            style={styles.select}
-          >
-            <option value="masculino">Masculino</option>
-            <option value="femenino">Femenino</option>
-          </select>
-        </div>
+      {/* Edad de la víctima */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="edadVictima"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Edad de la víctima:
+        </label>
+        <input type="number" id="edadVictima" placeholder="Edad" style={inputStyle} />
+      </div>
 
-        {/* Botón para capturar los datos */}
-        <div>
-          <button type="submit" style={styles.boton}>Capturar datos</button>
-        </div>
-      </form>
+      {/* Sexo de la víctima */}
+      <div style={{ marginBottom: "10px" }}>
+        <label
+          htmlFor="sexoVictima"
+          style={{ display: "block", fontWeight: "600", marginBottom: "4px" }}
+        >
+          Sexo de la víctima:
+        </label>
+        <select id="sexoVictima" style={inputStyle}>
+          <option value="">Seleccione</option>
+          <option value="femenino">Femenino</option>
+          <option value="masculino">Masculino</option>
+        </select>
+      </div>
     </div>
   );
-};
+}
 
-const styles = {
-  contenedor: {
-    padding: '40px',
-    fontFamily: 'Arial, sans-serif',
-    backgroundColor: '#E7DCB7FF', // Fondo suave
-    maxWidth: '800px',
-    margin: 'auto',
-    borderRadius: '12px',
-    boxShadow: '0 4px 25px rgba(0, 0, 0, 0.2)',
-  },
-  titulo: {
-    textAlign: 'center',
-    marginBottom: '30px',
-    color: '#621132', 
-    fontSize: '28px',
-    fontWeight: '600',
-  },
-  formulario: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '25px',
-  },
-  campo: {
-    marginBottom: '20px',
-  },
-  label: {
-    fontSize: '16px',
-    marginBottom: '10px',
-    fontWeight: 'bold',
-  },
-  input: {
-    width: '100%',
-    padding: '12px',
-    fontSize: '16px',
-    borderRadius: '8px',
-    border: '1px solid #999',
-  },
-  select: {
-    width: '100%',
-    padding: '12px',
-    fontSize: '16px',
-    borderRadius: '8px',
-    border: '1px solid #999',
-  },
-  textarea: {
-    width: '100%',
-    padding: '12px',
-    fontSize: '16px',
-    borderRadius: '8px',
-    border: '1px solid #999',
-    minHeight: '120px',
-    resize: 'vertical',
-  },
-  boton: {
-    padding: '14px 25px',
-    backgroundColor: '#621132',
-    color: '#fff',
-    fontSize: '18px',
-    fontWeight: 'bold',
-    borderRadius: '10px',
-    cursor: 'pointer',
-    border: 'none',
-    transition: 'background-color 0.3s ease',
-  },
+const inputStyle = {
+  width: "100%",
+  padding: "8px",
+  borderRadius: "6px",
+  border: "1px solid #ccc",
 };
-
-export default TablaExtorciones;

@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaLavadoDinero() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Lavado de Dinero
       </h2>
 
       {/* Fecha */}
@@ -23,14 +23,6 @@ export default function TablaDrogas() {
         <input type="time" id="hora" style={inputStyle} />
       </div>
 
-      {/* Lugar donde ocurre */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
-        </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
-      </div>
-
       {/* Descripción de los hechos */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="descripcionHechos" style={labelStyle}>
@@ -44,60 +36,23 @@ export default function TablaDrogas() {
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* Descripción de personas o entidades involucradas */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
+          Descripción de las personas o entidades involucradas:
         </label>
         <textarea
           id="descripcionPersonas"
-          placeholder="Describa a las personas involucradas"
+          placeholder="Describa a las personas o entidades involucradas"
           rows="3"
           style={inputStyle}
         ></textarea>
       </div>
 
-      {/* Tipo de droga */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
-        </label>
-        <input
-          type="text"
-          id="tipoDroga"
-          placeholder="Ej. marihuana, cocaína, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Medios de transporte utilizados */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
-        </label>
-        <input
-          type="text"
-          id="mediosTransporte"
-          placeholder="Ej. auto, motocicleta, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Actos violentos o amenazas */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
-        </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
-          <option value="si">Sí</option>
-          <option value="no">No</option>
-        </select>
-      </div>
-
-      {/* Pruebas como fotos, videos, etc. */}
+      {/* Existencia de pruebas */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="pruebas" style={labelStyle}>
-          ¿Existen pruebas como fotos, videos, etcétera?
+          ¿Existen pruebas como documentos, transacciones bancarias, registros contables u otros datos que puedan confirmar las actividades de lavado de dinero?
         </label>
         <select id="pruebas" defaultValue="no" style={inputStyle}>
           <option value="si">Sí</option>

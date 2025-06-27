@@ -1,10 +1,10 @@
 import React from "react";
 
-export default function TablaDrogas() {
+export default function TablaTraficoArmas() {
   return (
     <div>
       <h2 style={{ color: "#621132", marginBottom: "10px", textAlign: "center" }}>
-        Formulario: Tráfico de Drogas
+        Formulario: Tráfico de Armas
       </h2>
 
       {/* Fecha */}
@@ -15,20 +15,12 @@ export default function TablaDrogas() {
         <input type="date" id="fecha" style={inputStyle} />
       </div>
 
-      {/* Hora */}
+      {/* Hora en que se observó el tráfico */}
       <div style={{ marginBottom: "10px" }}>
         <label htmlFor="hora" style={labelStyle}>
-          Hora:
+          Hora en que se observó el tráfico de armas:
         </label>
         <input type="time" id="hora" style={inputStyle} />
-      </div>
-
-      {/* Lugar donde ocurre */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="lugar" style={labelStyle}>
-          Lugar donde ocurre:
-        </label>
-        <input type="text" id="lugar" placeholder="Ingrese el lugar" style={inputStyle} />
       </div>
 
       {/* Descripción de los hechos */}
@@ -38,68 +30,57 @@ export default function TablaDrogas() {
         </label>
         <textarea
           id="descripcionHechos"
-          placeholder="Describa los hechos"
+          placeholder="Describa lo sucedido"
           rows="3"
           style={inputStyle}
         ></textarea>
       </div>
 
-      {/* Descripción de la persona o personas involucradas */}
+      {/* Descripción de las personas involucradas */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="descripcionPersonas" style={labelStyle}>
-          Descripción de la(s) persona(s) involucrada(s):
+        <label htmlFor="personasInvolucradas" style={labelStyle}>
+          Descripción de las personas involucradas:
         </label>
         <textarea
-          id="descripcionPersonas"
-          placeholder="Describa a las personas involucradas"
-          rows="3"
+          id="personasInvolucradas"
+          placeholder="Vestimenta, características, número de personas..."
+          rows="2"
           style={inputStyle}
         ></textarea>
       </div>
 
-      {/* Tipo de droga */}
+      {/* Uso de vehículos o transporte */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="tipoDroga" style={labelStyle}>
-          ¿Qué tipo de droga se está traficando?
+        <label htmlFor="usoTransporte" style={labelStyle}>
+          ¿Las personas involucradas están usando vehículos o algún medio de transporte?
         </label>
-        <input
-          type="text"
-          id="tipoDroga"
-          placeholder="Ej. marihuana, cocaína, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Medios de transporte utilizados */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="mediosTransporte" style={labelStyle}>
-          Medios de transporte utilizados:
-        </label>
-        <input
-          type="text"
-          id="mediosTransporte"
-          placeholder="Ej. auto, motocicleta, etc."
-          style={inputStyle}
-        />
-      </div>
-
-      {/* Actos violentos o amenazas */}
-      <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="actosViolentos" style={labelStyle}>
-          ¿Se han registrado actos violentos o amenazas relacionadas?
-        </label>
-        <select id="actosViolentos" defaultValue="no" style={inputStyle}>
+        <select id="usoTransporte" style={inputStyle}>
+          <option value="">Seleccione</option>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
       </div>
 
-      {/* Pruebas como fotos, videos, etc. */}
+      {/* Tipo de armas traficadas */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="pruebas" style={labelStyle}>
-          ¿Existen pruebas como fotos, videos, etcétera?
+        <label htmlFor="tipoArmas" style={labelStyle}>
+          ¿Qué tipo de armas se están traficando?
         </label>
-        <select id="pruebas" defaultValue="no" style={inputStyle}>
+        <input
+          type="text"
+          id="tipoArmas"
+          placeholder="Ej. armas cortas, rifles, municiones..."
+          style={inputStyle}
+        />
+      </div>
+
+      {/* Evidencia multimedia */}
+      <div style={{ marginBottom: "10px" }}>
+        <label htmlFor="evidencia" style={labelStyle}>
+          ¿Existen fotos, videos, etcétera?
+        </label>
+        <select id="evidencia" style={inputStyle}>
+          <option value="">Seleccione</option>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
@@ -107,10 +88,11 @@ export default function TablaDrogas() {
 
       {/* Testigos */}
       <div style={{ marginBottom: "10px" }}>
-        <label htmlFor="testigos" style={labelStyle}>
+        <label htmlFor="hayTestigos" style={labelStyle}>
           ¿Hay testigos de los hechos?
         </label>
-        <select id="testigos" defaultValue="no" style={inputStyle}>
+        <select id="hayTestigos" style={inputStyle}>
+          <option value="">Seleccione</option>
           <option value="si">Sí</option>
           <option value="no">No</option>
         </select>
